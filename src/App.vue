@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <label>Name</label>
+    <input v-model="val" />
+    <FallButton @click="buttonClick"  :list="list"/>
+    <Personal :name="name" :list="list" />
+    <button @click="toSub">Send to Sub</button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FallButton from "./components/Fall.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    FallButton,
+  },
+  data() {
+    return {
+      name: 'Complete',
+      val: '',
+      list:[],
+      desclist:[]
+    };
+  },
+  methods: {
+    buttonClick() {
+      this.list.push(this.val)
+    },
+    toSub(){
+      this.desclist.push(this.val)
+    }
+  },
+  provide(){
+    return {
+      list: this.desclist
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
